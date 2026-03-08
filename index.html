@@ -1,0 +1,253 @@
+```html id="x2qk6r"
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Dancing+Script&display=swap" rel="stylesheet">
+
+<style>
+
+body{
+margin:0;
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+background:#fff6f9;
+font-family:'Dancing Script',cursive;
+overflow:hidden;
+}
+
+/* phong bì */
+
+.envelope{
+width:520px;
+height:320px;
+position:relative;
+cursor:pointer;
+z-index:2;
+}
+
+/* thân */
+
+.base{
+position:absolute;
+width:100%;
+height:100%;
+background:white;
+border:2px solid #ffb3c7;
+border-radius:12px;
+box-shadow:0 10px 20px rgba(0,0,0,0.1);
+}
+
+/* nắp */
+
+.flap{
+position:absolute;
+width:100%;
+height:160px;
+background:#ffd9e5;
+clip-path:polygon(0 0,100% 0,50% 100%);
+transform-origin:top;
+transition:1s;
+}
+
+/* giấy */
+
+.paper{
+position:absolute;
+width:90%;
+height:90%;
+background:white;
+left:5%;
+top:60%;
+border-radius:10px;
+padding:40px;
+box-sizing:border-box;
+text-align:center;
+transition:1.6s;
+border:1px solid #ffd1dc;
+}
+
+.open .flap{
+transform:rotateX(180deg);
+}
+
+.open .paper{
+top:-300px;
+}
+
+/* chữ */
+
+.title{
+font-family:'Great Vibes',cursive;
+font-size:46px;
+color:#ff4f8b;
+margin-bottom:15px;
+}
+
+.text{
+color:#ff6fa1;
+font-size:26px;
+line-height:38px;
+min-height:120px;
+}
+
+/* hello kitty */
+
+.kitty{
+width:90px;
+animation:swing 3s infinite ease-in-out;
+}
+
+@keyframes swing{
+0%{transform:rotate(-5deg)}
+50%{transform:rotate(5deg)}
+100%{transform:rotate(-5deg)}
+}
+
+/* tim bay */
+
+.heart{
+position:absolute;
+font-size:26px;
+animation:fly 3s linear forwards;
+}
+
+@keyframes fly{
+0%{transform:translateY(0)}
+100%{transform:translateY(-500px);opacity:0}
+}
+
+/* hoa + tim rơi */
+
+.fall{
+position:absolute;
+top:-50px;
+font-size:26px;
+animation:fall linear forwards;
+}
+
+@keyframes fall{
+to{
+transform:translateY(110vh);
+opacity:0.7;
+}
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="envelope" id="card">
+
+<div class="flap"></div>
+<div class="base"></div>
+
+<div class="paper">
+
+<img class="kitty" src="https://upload.wikimedia.org/wikipedia/en/0/05/Hello_Kitty_character_portrait.png">
+
+<div class="title">Xuân Tiên</div>
+
+<div class="text" id="text"></div>
+
+</div>
+
+</div>
+
+<script>
+
+let message=`Chúc Xuân Tiên một ngày 8/3 luôn tươi như hoa,
+khỏe như voi và yêu đời như chim sẻ nhé.
+
+Luôn hạnh phúc, vui vẻ bên gia đình và bạn bè nhaaa ❤️`
+
+let i=0
+let opened=false
+
+let card=document.getElementById("card")
+
+card.onclick=function(){
+
+if(opened) return
+opened=true
+
+card.classList.add("open")
+
+createHearts()
+
+setTimeout(typeWriter,1500)
+
+}
+
+/* chữ hiện */
+
+function typeWriter(){
+
+if(i < message.length){
+
+document.getElementById("text").innerHTML += message.charAt(i)
+
+i++
+
+setTimeout(typeWriter,40)
+
+}
+
+}
+
+/* tim bay */
+
+function createHearts(){
+
+for(let i=0;i<15;i++){
+
+let heart=document.createElement("div")
+
+heart.className="heart"
+
+heart.innerHTML="💖"
+
+heart.style.left=Math.random()*100+"vw"
+heart.style.bottom="0px"
+
+document.body.appendChild(heart)
+
+setTimeout(()=>heart.remove(),3000)
+
+}
+
+}
+
+/* hoa + tim rơi */
+
+function createFall(){
+
+let item=document.createElement("div")
+
+item.className="fall"
+
+let icons=["💗","💖","🌸","🌺"]
+
+item.innerHTML=icons[Math.floor(Math.random()*icons.length)]
+
+item.style.left=Math.random()*100+"vw"
+
+item.style.animationDuration=(4+Math.random()*4)+"s"
+
+document.body.appendChild(item)
+
+setTimeout(()=>item.remove(),8000)
+
+}
+
+setInterval(createFall,300)
+
+</script>
+
+</body>
+</html>
+```
